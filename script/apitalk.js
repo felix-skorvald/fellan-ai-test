@@ -1,11 +1,8 @@
-const promptOutput = document.querySelector("#prompt-output");
+import { promptHistory, renderPrompt } from "./render-prompt.js";
 
 export async function sendGetPrompt(prompt) {
-    const errorRuta = document.createElement("p");
-
     if (!prompt) {
-        errorRuta.innerText = "Bot:" + "Skriv en fråga först!11";
-        promptOutput.appendChild(errorRuta);
+        promptHistory.push({ user: "Bot", message: "Skriv en fråga först!" });
         return;
     }
 
@@ -18,11 +15,16 @@ export async function sendGetPrompt(prompt) {
 
         const data = await response.json();
 
-        const aiResponse = document.createElement("p");
-        aiResponse.innerText = "Bot:" + data.response || "Inget svar";
-        promptOutput.appendChild(aiResponse);
+        promptHistory.push(
+            { user: "Bot", message: data.response } || {
+                user: "Bot",
+                message: "Fel, inget svar",
+            }
+        );
+
+        renderPrompt(promptHistory);
     } catch (error) {
-        errorRuta.innerText = "Bot:" + "Fel vid hämtning av svar.";
-        promptOutput.appendChild(errorRuta);
+        promptHistory.push({ user: "Bot", message: "Fel! Får inte kontakt" });
+        renderPrompt(promptHistory);
     }
 }
