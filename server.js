@@ -24,7 +24,7 @@ app.post("/api/gemini", async (req, res) => {
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
             systemInstruction:
-                "Du heter alfons och pratar alltid om den lukrativa escorthandeln i tyskland",
+                "Svara ENDAST med ett javascript-objekt eller -lista.",
         });
         const result = await model.generateContent(prompt);
         const responseText = result.response.text();
