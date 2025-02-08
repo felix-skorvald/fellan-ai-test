@@ -31,12 +31,12 @@ header {
     display: flex;
     flex-direction: column;
     border: 1px solid black;
-    width: 30rem;
+    max-width: 100%;
 }
 
 #prompt-output {
     min-height: 30rem;
-    width: 30rem;
+    min-width: 40rem;
     background-color: rgb(255, 255, 255);
     border: 1px solid black;
 }
